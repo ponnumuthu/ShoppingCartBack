@@ -7,7 +7,11 @@ public interface UserDAO {
 	
 	public List<User> list();
 	
-	public User get(String user_Id);
+	public User get(String username);
+	
+	public User getByEmail(String email);
+	
+	public User getById(String id);
 	
 	public void saveOrUpdate(User user);
 		

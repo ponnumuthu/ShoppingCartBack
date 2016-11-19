@@ -1,10 +1,14 @@
 package com.niit.shoppingcartback.model;
 
+import java.util.Date;
+
+import javax.annotation.Generated;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 
 import org.springframework.stereotype.Component;
 
@@ -14,26 +18,57 @@ import org.springframework.stereotype.Component;
 public class Cart {
 	
 	@Id
-	@Column(name="S_NO")	
 	@GeneratedValue
-	private int S_No;
+	private String cartId;
 	
+	public String getCartId() {
+		return cartId;
+	}
+	public void setCartId(String cartId) {
+		this.cartId = cartId;
+	}
 	private String userId;
 	private String userName;
 	private String productName;
+	private String productId;
 	private int price;
+	private int total;
 	private int quantity;
 	private String status;
+	private int days;
+	
+	@Generated(value = { "" })
+	@Temporal(javax.persistence.TemporalType.DATE)
+	private Date addDate = new java.sql.Date(new java.util.Date().getTime());
 	
 	
 	
-	
-	public int getS_No() {
-		return S_No;
+	public int getTotal() {
+		return total;
 	}
-	public void setS_No(int s_No) {
-		S_No = s_No;
+	public void setTotal(int total) {
+		this.total = total;
 	}
+	public Date getAddDate() {
+		return addDate;
+	}
+	public void setAddDate(Date addDate) {
+		this.addDate = addDate;
+	}
+	public String getProductId() {
+		return productId;
+	}
+	public void setProductId(String productId) {
+		this.productId = productId;
+	}
+	
+	public int getDays() {
+		return days;
+	}
+	public void setDays(int days) {
+		this.days = days;
+	}
+	
 	public String getUserId() {
 		return userId;
 	}

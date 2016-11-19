@@ -35,8 +35,8 @@ public class ShippingAddressDAOImpl implements ShippingAddressDAO{
 	}
 
 	@Transactional
-	public ShippingAddress get(String name) {
-		String hql = "from ShippingAddress where name ='"+ name+"'";
+	public ShippingAddress get(String username) {
+		String hql = "from ShippingAddress where username ='"+ username+"'";
 		Query query = (Query) sessionFactory.getCurrentSession().createQuery(hql);
 		@SuppressWarnings("unchecked")
 		List<ShippingAddress> listShippingAddress = (List<ShippingAddress>) (query).list();
@@ -53,9 +53,9 @@ public class ShippingAddressDAOImpl implements ShippingAddressDAO{
 	}
 
 	@Transactional
-	public void delete(String id) {
+	public void delete(String shippingId) {
 		ShippingAddress shippingAddressToDelete = new ShippingAddress();
-		shippingAddressToDelete.setId(id);
+		shippingAddressToDelete.setUsersId(shippingId);
 		sessionFactory.getCurrentSession().delete(shippingAddressToDelete);
 	}
 
@@ -63,6 +63,19 @@ public class ShippingAddressDAOImpl implements ShippingAddressDAO{
 	public void editShippingAddress(ShippingAddress shippingAddress) {
 		sessionFactory.getCurrentSession().saveOrUpdate(shippingAddress);
 		
+	}
+
+	@Override
+	public ShippingAddress getByShippingId(String ShippingId) {
+		String hql = "from ShippingAddress where ShippingId ='"+ ShippingId+"'";
+		Query query = (Query) sessionFactory.getCurrentSession().createQuery(hql);
+		@SuppressWarnings("unchecked")
+		List<ShippingAddress> listShippingAddress = (List<ShippingAddress>) (query).list();
+		
+		if (listShippingAddress != null && !listShippingAddress.isEmpty()){
+			return listShippingAddress.get(0);
+		}
+		return null;
 	}
 
 	}

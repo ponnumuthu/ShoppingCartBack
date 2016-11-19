@@ -16,6 +16,8 @@ public interface ProductDAO {
 	
 	public void delete(String product_Id);
 	
+	public List<Product> search(String keyWord);
+
 
 
 }

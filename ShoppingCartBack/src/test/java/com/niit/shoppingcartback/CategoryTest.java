@@ -58,7 +58,7 @@ category.setId("CG121");
 		productDAO.saveOrUpdate(product);
 		
 		
-		user.setId("User_003");
+		user.setUsersId("User_003");
 		user.setUsername("Gold");
 		user.setPassword("gold");
 		user.setPhoneNo(963852);
@@ -68,7 +68,7 @@ category.setId("CG121");
 		
 		
 		userDAO.saveOrUpdate(user);
-		cart.setS_No(2);
+		cart.setCartId("1");
 		cart.setUserId("user_001");
 		cart.setUserName("muthu");
 		cart.setProductName("sony z4");

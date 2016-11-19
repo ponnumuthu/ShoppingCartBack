@@ -1,14 +1,21 @@
 package com.niit.shoppingcartback.model;
 
 
+import java.util.Date;
+
+import javax.annotation.Generated;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.stereotype.Component;
 
 
@@ -16,11 +23,16 @@ import org.springframework.stereotype.Component;
 @Table(name = "user")
 @Component
 public class User {
+	
 	@Id
-	@Column(name="id")
+	
 	@GeneratedValue
-	private String Id;
+	private String usersId;
+	
+	@NotNull
+	@Column(name="username", unique=true, columnDefinition="VARCHAR(35)" )
 	private String username;	
+	
 	public String getUsername() {
 		return username;
 	}
@@ -30,10 +42,23 @@ public class User {
 	}
 
 	private String password;
+	
+	@NotNull	
 	private long phoneNo;
+	
+	@NotNull
+	@Column(name="emailid", unique=true, columnDefinition="VARCHAR(35)" )
 	private String emailid;
+	
 	private String adress;
 	private int zipCode;
+	 private boolean enabled;
+	 
+	 
+	@Generated(value = { "" })
+	@Temporal(javax.persistence.TemporalType.DATE)
+	private Date date = new java.sql.Date(new java.util.Date().getTime());
+	
 	
 	@Transient
 	private String FirstName;
@@ -42,6 +67,26 @@ public class User {
 	
 	
 	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "usersId")
+	private UserRole userRole;
+		
+	public UserRole getUserRole() {
+		return userRole;
+	}
+
+	public void setUserRole(UserRole userRole) {
+		this.userRole = userRole;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
 	
 	public String getFirstName() {
 		return FirstName;
@@ -59,16 +104,26 @@ public class User {
 		LastName = lastName;
 	}
 
-	public String getId() {
-		return Id;
-	}
-
-	public void setId(String id) {
-		Id = id;
-	}
+	
 
 	
 	
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public String getUsersId() {
+		return usersId;
+	}
+
+	public void setUsersId(String usersId) {
+		this.usersId = usersId;
+	}
+
 	public String getPassword() {
 		return password;
 	}

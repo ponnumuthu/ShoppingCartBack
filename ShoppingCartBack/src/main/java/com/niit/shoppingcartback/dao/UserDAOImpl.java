@@ -10,11 +10,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.niit.shoppingcartback.model.User;
 import com.niit.shoppingcartback.model.UserRole;
-import com.niit.shoppingcartback.model.Users;
+
 
 
 @Repository("UserDAO")
 public class UserDAOImpl implements UserDAO {
+
 	
 @Autowired
 private SessionFactory sessionFactory;
@@ -26,29 +27,29 @@ public UserDAOImpl(SessionFactory sessionFactory){
 
 @Transactional
 public void saveOrUpdate(User user) {
-	Users users=new Users();
-	UserRole role=new UserRole();
+	//Users users=new Users();
+	//UserRole role=new UserRole();
 	sessionFactory.getCurrentSession().saveOrUpdate(user);
 //users.setUsersId(user.getId());
-	users.setUsername(user.getUsername());
+	/*users.setUsername(user.getUsername());
 	users.setPassword(user.getPassword());
 	users.setEnabled(true);
-	sessionFactory.getCurrentSession().saveOrUpdate(users);
-	role.setUsername(user.getUsername());
-	role.setRole("ROLE_USER");
-	sessionFactory.getCurrentSession().saveOrUpdate(role);
+	sessionFactory.getCurrentSession().saveOrUpdate(users);*/
+	//role.setUsername(user.getUsername());
+	//role.setRole("ROLE_USER");
+	//sessionFactory.getCurrentSession().saveOrUpdate(role);
 }
 
 @Transactional
 public void delete(String user_Id){
 	User userToDelete = new User();
-	userToDelete.setId(user_Id);
+	userToDelete.setUsersId(user_Id);
 	sessionFactory.getCurrentSession().delete(userToDelete);
 }
 
 @Transactional
-public User get(String name){
-	String hql = "from User where username ='"+ name +"'";
+public User get(String username){
+	String hql = "from User where username ='"+ username +"'";
 	org.hibernate.Query query = sessionFactory.getCurrentSession().createQuery(hql);
 	@SuppressWarnings("unchecked")
 	List<User> listUser = (List<User>) query.list();
@@ -97,6 +98,32 @@ public boolean isAllReadyRegister(String email, boolean b) {
 	}
 	return false;
 
+}
+
+@Transactional
+public User getByEmail(String email) {
+	String hql = "from User where emailid ='"+ email +"'";
+	org.hibernate.Query query = sessionFactory.getCurrentSession().createQuery(hql);
+	@SuppressWarnings("unchecked")
+	List<User> listUser = (List<User>) query.list();
+	
+	if (listUser != null && !listUser.isEmpty()){
+		return listUser.get(0);
+	}
+	return null;
+}
+
+@Transactional
+public User getById(String usersId) {
+	String hql = "from User where usersId ='"+ usersId +"'";
+	org.hibernate.Query query = sessionFactory.getCurrentSession().createQuery(hql);
+	@SuppressWarnings("unchecked")
+	List<User> listUser = (List<User>) query.list();
+	
+	if (listUser != null && !listUser.isEmpty()){
+		return listUser.get(0);
+	}
+	return null;
 }
 
 

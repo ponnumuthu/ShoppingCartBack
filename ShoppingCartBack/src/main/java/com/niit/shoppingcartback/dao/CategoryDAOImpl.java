@@ -61,11 +61,12 @@ public class CategoryDAOImpl implements CategoryDAO {
 
 	@Transactional
 	public List<Category> search(String keyWord) {
-		// TODO Auto-generated method stub
-	
-		  String hql = "select p.name,p.description from Category p where " +
-		  "p.id like '%" + keyWord + "%'" + " or p.name like " +
-		"'%" + keyWord + "%'" + "or p.description like '%"+ keyWord + "%'";
+		
+	/*int id = Integer.parseInt(keyWord);*/
+		
+		 //String hql = "from Category p where p.name like '%" + keyWord + "%' or p.description like '%"+ keyWord + "%'";
+					  
+		String hql = "from Category p where p.name like '%" + keyWord + "%' or p.description like '%"+ keyWord + "%' or p.id like '%" + keyWord + "%'";
 		 
 		//String hql = "SELECT * FROM Category WHERE id  LIKE " + keyWord + "% OR name LIKE " + keyWord + "% OR description LIKE " + keyWord + "%";
 		Query query = (Query) sessionFactory.getCurrentSession().createQuery(hql);
